@@ -74,21 +74,15 @@ class TCMPUrlBein{
             $embedded = $matches[1];
         }
         if($url_host && $embedded && $channel && $e){
-            $url = $url_host.$embedded.'/'.$channel."/".$e."/640/480";
-            $host =  $this->get_host($url);
-            $redis_key = 'live_html_'.$host.md5($url);
-            $body = $this->redis->get($redis_key);
-            if(!$body){
-                $header =  array(
-                    "cache-control: no-cache",
-                    //"host: www.mipsplayer.com",
-                    //"postman-token: 559ae20f-1adb-0b66-768e-d691f807ae2b",
-                    "referer:".$refere_url,
-                    //"user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.91 Safari/537.36"
-                );
-                $body = $this->curl_get($url,$header);
-                $this->redis->set($redis_key, $body);
-            }
+            $url = $url_host.$embedded.'/'.$channel."/".$e."/1080/337";
+            $header =  array(
+                "cache-control: no-cache",
+                //"host: www.mipsplayer.com",
+                "postman-token: 2f536fc4-7d41-9eba-6a1b-8d18032a3334",
+                "referer:".$refere_url,
+                "user-agent: ozilla/5.0 (Linux; Android 5.1.1; Nexus 6 Build/LYZ28E) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.91 Mobile Safari/537.36"
+            );
+            $body = $this->curl_get($url,$header);
             $pk='';
             $pk_reg='|enableVideo\("([^"]+)|i';
             if(preg_match($pk_reg,$body,$matches)){
@@ -117,7 +111,7 @@ class TCMPUrlBein{
                     //"host: www.mipsplayer.com",
                     //"postman-token: 559ae20f-1adb-0b66-768e-d691f807ae2b",
                     "referer:".$url,
-                    //"user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.91 Safari/537.36"
+                    "user-agent: ozilla/5.0 (Linux; Android 5.1.1; Nexus 6 Build/LYZ28E) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.91 Mobile Safari/537.36"
                 );
                 $src = $this->curl_get($redirect_url,$header);
                 $attr = explode('=',$src);
